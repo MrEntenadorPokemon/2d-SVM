@@ -7,10 +7,10 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-df = pd.read_csv('')
+df = pd.read_csv('dataset_entrenamiento_gestos.csv')
 
-X = df.drop('label', axis = 1)
-y = df['label']
+X = df.drop('gesture_label', axis=1)
+y = df['gesture_label']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.20, random_state = 42, stratify = y)
 
@@ -20,7 +20,7 @@ X_test_scaled = scaler.transform(X_test)
 
 svm_model = SVC(kernel = 'rbf', decision_function_shape = 'ovr')
 
-cv_scores = cross_val_score(svm_model, X_test_scaled, y_train, cv = 5)
+cv_scores = cross_val_score(svm_model, X_train_scaled, y_train, cv=5)
 print(f"Scores de cada fold: {cv_scores}")
 print(f"Promedio de Accuracy en CV: {cv_scores.mean():.4f}\n")
 
